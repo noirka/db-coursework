@@ -25,11 +25,11 @@ jobs:
           bins: mdbook,mdbook-plantuml
 
       - name: Build Docs
-        run: mdbook build
+        run: mdbook build ./docs
 
       - name: Deploy Docs
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           # This is the branch where the docs are deployed to
           branch: gh-pages
-          folder: book
+          folder: docs/book
