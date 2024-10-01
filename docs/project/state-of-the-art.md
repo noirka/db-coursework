@@ -71,12 +71,21 @@
 ## Посилання
 
 1.https://uk.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%94%D0%BA%D1%82
+
 2.https://blog.agrokebety.com/shcho-take-upravlinnya-proektamy
+
 3.https://wizeclub.education/blog/populyarni-metodologiyi-upravlinnya-proyektami-vid-gnuchkoyi-agile-do-vimoglivoyi-prince2/
+
 4.https://elearning.sumdu.edu.ua/free_content/lectured:de1c9452f2a161439391120eef364dd8ce4d8e5e/20160217112601/183252/index.html
+
 5.https://www.atlassian.com/ru/agile/kanban/boards
+
 6.https://training.qatestlab.com/blog/technical-articles/scrum-terminology/
+
 7.https://worksection.com/ua/blog/top-management-tools.html
+
 8.https://training.qatestlab.com/blog/technical-articles/popular-software-development-life-cycles/
+
 9.https://ux.pub/zhmikhov/minimalno-zhittiezdatnii-produkt-minimum-viable-product-mvp-3if3
+
 10.https://git-scm.com/book/uk/v2/%D0%92%D1%81%D1%82%D1%83%D0%BF-%D0%9F%D1%80%D0%BE-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%83-%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8E-%D0%B2%D0%B5%D1%80%D1%81%D1%96%D0%B
