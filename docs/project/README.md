@@ -18,6 +18,9 @@ Telegram: [@arosyri](https://t.me/arosyri)
 *студент 2-го курсу, групи ІМ-34* **Євген Буткевич**\
 Telegram: [@de_evgenko](https://t.me/de_evgenko)
 
+*студентка 2-го курсу, групи ІМ-34* **Вероніка**\
+Telegram: [@VeronikaNuar](https://t.me/VeronikaNuar)
+
 # Керівник
 
 *доцент кафедри ОТ ФІОТ, к.т.н., доцент* **Андрій БОЛДАК** 
