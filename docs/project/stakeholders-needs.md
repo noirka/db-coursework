@@ -48,8 +48,6 @@ Supportability — зручність супроводу — вимоги до �
 
 1. [Характеристика ділових процесів](https://github.com/KPI-FICT-COMSYS-121-IM34-G1/db-coursework/edit/Introduction-purpose-context-basic-definitions-references-summary/docs/project/stakeholders-needs.md#характеристика-ділових-процесів)
 
-!!!!!!!!!!!!!Finish here after "Характеристика ділових процесів" is done
-
 2. [Короткий огляд продукту](https://github.com/KPI-FICT-COMSYS-121-IM34-G1/db-coursework/edit/Introduction-purpose-context-basic-definitions-references-summary/docs/project/stakeholders-needs.md#%D0%BA%D0%BE%D1%80%D0%BE%D1%82%D0%BA%D0%B8%D0%B8-%D0%BE%D0%B3%D0%BB%D1%8F%D0%B4-%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%82%D1%83)
 
 3. [Функціональність](https://github.com/KPI-FICT-COMSYS-121-IM34-G1/db-coursework/edit/Introduction-purpose-context-basic-definitions-references-summary/docs/project/stakeholders-needs.md#функціональність)
