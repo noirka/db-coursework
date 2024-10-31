@@ -1,17 +1,7 @@
 # Розроблення функціональних вимог до системи
 
-## Модель прецедентів
 
-В цьому файлі необхідно перелічити всі документи, розроблені в проекті та дати посилання на них.
-
-*Модель прецедентів повинна містити загальні оглядові діаграми та специфікації прецедентів.*
-
-
-
-Вбудовування зображень діаграм здійснюється з використанням сервісу [plantuml.com](https://plantuml.com/). 
-
-В markdown-файлі використовується опис діаграми
-
+## Загальна схема
 ```md
 
 <center style="
@@ -22,132 +12,135 @@
 >
 
 @startuml
+skinparam noteFontColor white
 
-    right header
-        <font size=24 color=black>Package: <b>UCD_3.0
-    end header
-
-    title
-        <font size=18 color=black>UC_8. Редагувати конфігурацію порталу
-        <font size=16 color=black>Діаграма прецедентів
-    end title
+actor "Робітник" as Collaborator
 
 
-    actor "Користувач" as User #eeeeaa
-    
-    package UCD_1{
-        usecase "<b>UC_1</b>\nПереглянути список \nзвітів" as UC_1 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1</b>\nЗастосувати фільтр" as UC_1.1
-    usecase "<b>UC_1.2</b>\nПереглянути метадані \nзвіту" as UC_1.2  
-    usecase "<b>UC_1.2.1</b>\nДати оцінку звіту" as UC_1.2.1  
-    usecase "<b>UC_1.2.2</b>\nПереглянути інформацію \nпро авторів звіту" as UC_1.2.2
-    
-    package UCD_1 {
-        usecase "<b>UC_4</b>\nВикликати звіт" as UC_4 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1.1</b>\n Використати \nпошукові теги" as UC_1.1.1  
-    usecase "<b>UC_1.1.2</b>\n Використати \nрядок пошуку" as UC_1.1.2
-    usecase "<b>UC_1.1.3</b>\n Використати \nавторів" as UC_1.1.3  
-    
-    
-    
-    User -> UC_1
-    UC_1.1 .u.> UC_1 :extends
-    UC_1.2 .u.> UC_1 :extends
-    UC_4 .d.> UC_1.2 :extends
-    UC_1.2 .> UC_1.2 :extends
-    UC_1.2.1 .u.> UC_1.2 :extends
-    UC_1.2.2 .u.> UC_1.2 :extends
-    UC_1 ..> UC_1.2.2 :extends
-    
-    
-    UC_1.1.1 -u-|> UC_1.1
-    UC_1.1.2 -u-|> UC_1.1
-    UC_1.1.3 -u-|> UC_1.1
-    
-    right footer
-        Аналітичний портал. Модель прецедентів.
-        НТУУ КПІ ім.І.Сікорського
-        Киів-2020
-    end footer
+usecase "<b>SignIn</b>\nЗареєструватися" as SignIn
+usecase "<b>Login</b>\nВвхід у систему" as Login
+usecase "<b>ManageTasks</b>\nУправління завданнями" as ManageTasks
+usecase "<b>EditUser</b>\nРедагування даних користувача" as EditUser
 
+
+Collaborator -r-> SignIn
+Collaborator -u-> Login
+Collaborator -l-> ManageTasks
+Collaborator -u-> EditUser
+
+
+
+
+note bottom of Collaborator  #4e4e4e
+
+   Робітник може повною мірою керувати тільки<b>власними завданнями</b>
+   та на призначених йому завданнях він має можливість тільки
+   <b>змінювати статус</b> (to-do/in progress/done/in rewiew).
+   <b>Фільтрувати</b> та <b>коментувати</b> робітник може повною мірою <b>всі</b>
+   <b>завдання проекту</b>.
+   
+
+end note
+
+actor "Тімлід" as Teamlead
+
+usecase "<b>ProjectManage</b>\nКерувати проектом" as ProjectManage
+
+
+
+Teamlead -> ProjectManage
+Teamlead -u-|> Collaborator
+
+actor "Адміністратор системи" as Admin
+
+usecase "<b>DataManage</b>\nКерувати даними системи" as DataManage
+
+
+Admin --> DataManage
+
+Admin -u-|> Teamlead
 @enduml
-
 **Діаграма прецедентів**
 
 </center>
 ```
+## Робітник
 
-яка буде відображена наступним чином
-
-<center style="
-    border-radius:4px;
-    border: 1px solid #cfd7e6;
-    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
-    padding: 1em;"
-    >
-
-```plantuml
+```
 @startuml
+skinparam noteFontColor white
 
-    right header
-        <font size=24 color=black>Package: <b>UCD_3.0
-    end header
+actor "Робітник" as Collaborator
 
-    title
-        <font size=18 color=black>UC_8. Редагувати конфігурацію порталу
-        <font size=16 color=black>Діаграма прецедентів
-    end title
+usecase "<b>SignIn</b>\nРеєстрація" as SignIn
+usecase "<b>UserSignIn</b>\nРеєстрація користувача" as UserSignIn
+usecase "<b>LogIn</b>\nВхід" as Login
+usecase "<b>UserLogIn</b>\nВхід користувача" as UserLogIn
+usecase "<b>EditUser</b>\nРедагувати дані користувача" as EditUser
+usecase "<b>ManageTasks</b>\nКерувати завданнями" as ManageTasks
+usecase "<b>CreateTask</b>\nСтворити завдання" as CreateTask
+usecase "<b>EditTask</b>\nРедагувати завдання" as EditTask
+usecase "<b>DeleteTask</b>\nВидалити завдання" as DeleteTask
+usecase "<b>FilterTask</b>\nВідфільтрувати завдання" as FilterTask
+usecase "<b>CommentTask</b>\nКоментувати завдання" as CommentTask
 
+Collaborator -l-> SignIn
+SignIn <.d. UserSignIn:extends
+Collaborator -r-> Login
+Login <.d. UserLogIn:extends
+Collaborator --d-> EditUser
+Collaborator -u-> ManageTasks
+ManageTasks <.u. CommentTask:extends
+ManageTasks <.u. FilterTask:extends
+ManageTasks <.u. DeleteTask:extends
+ManageTasks <.u. EditTask:extends
+ManageTasks<.u. CreateTask:extends
 
-    actor "Користувач" as User #eeeeaa
-    
-    package UCD_1{
-        usecase "<b>UC_1</b>\nПереглянути список \nзвітів" as UC_1 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1</b>\nЗастосувати фільтр" as UC_1.1
-    usecase "<b>UC_1.2</b>\nПереглянути метадані \nзвіту" as UC_1.2  
-    usecase "<b>UC_1.2.1</b>\nДати оцінку звіту" as UC_1.2.1  
-    usecase "<b>UC_1.2.2</b>\nПереглянути інформацію \nпро авторів звіту" as UC_1.2.2
-    
-    package UCD_1 {
-        usecase "<b>UC_4</b>\nВикликати звіт" as UC_4 #aaeeaa
-    }
-    
-    usecase "<b>UC_1.1.1</b>\n Використати \nпошукові теги" as UC_1.1.1  
-    usecase "<b>UC_1.1.2</b>\n Використати \nрядок пошуку" as UC_1.1.2
-    usecase "<b>UC_1.1.3</b>\n Використати \nавторів" as UC_1.1.3  
-    
-    
-    
-    User -> UC_1
-    UC_1.1 .u.> UC_1 :extends
-    UC_1.2 .u.> UC_1 :extends
-    UC_4 .d.> UC_1.2 :extends
-    UC_1.2 .> UC_1.2 :extends
-    UC_1.2.1 .u.> UC_1.2 :extends
-    UC_1.2.2 .u.> UC_1.2 :extends
-    UC_1 ..> UC_1.2.2 :extends
-    
-    
-    UC_1.1.1 -u-|> UC_1.1
-    UC_1.1.2 -u-|> UC_1.1
-    UC_1.1.3 -u-|> UC_1.1
-    
-    right footer
-        Аналітичний портал. Модель прецедентів.
-        НТУУ КПІ ім.І.Сікорського
-        Киів-2020
-    end footer
+note bottom of Collaborator #4e4e4e
 
+    Робітник може повною мірою керувати тільки<b>власними завданнями</b>
+   та на призначених йому завданнях він має можливість тільки
+   <b>змінювати статус</b> (to-do/in progress/done/in rewiew).
+   <b>Фільтрувати</b> та <b>коментувати</b> робітник може повною мірою <b>всі</b>
+   <b>завдання проекту</b>.
+   
+
+end note
+@enduml
+
+```
+## Тімлід
+```
+@startuml
+top to bottom direction
+
+actor "Тімлід" as Lead
+
+usecase "<b>CreateProject</b>\nСтворити проект" as CreateProject
+usecase "<b>DeleteProject</b>\nВидалити проект" as DeleteProject
+usecase "<b>EditProject</b>\nРедагувати проект" as EditProject
+usecase "<b>ProjectManage</b>\nКерувати проєктом" as ProjectManage
+
+CreateProject .d.> ProjectManage: extends
+DeleteProject .d.> ProjectManage: extends
+EditProject .d.> ProjectManage: extends
+
+Lead -u-> ProjectManage
 @enduml
 ```
+## Адміністратор
+```
+@startuml
+actor "Адміністратор системи" as Admin
+usecase "<b>DataManage</b>\nКерувати даними системи" as DataManage
+usecase "<b>BanUser</b>\nЗаблокувати користувача" as BanUser
+usecase "<b>UnBanUser</b>\nРозблокувати користувача" as UnBanUser
 
-
+Admin -d-> DataManage
+BanUser .u.> DataManage:extends
+UnBanUser .u.> DataManage:extends
+@enduml
+```
 **Діаграма прецедентів**
 
 </center>
