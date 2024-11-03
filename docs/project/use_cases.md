@@ -2,14 +2,7 @@
 
 
 ## Загальна схема
-```md
-
-<center style="
-    border-radius:4px;
-    border: 1px solid #cfd7e6;
-    box-shadow: 0 1px 3px 0 rgba(89,105,129,.05), 0 1px 1px 0 rgba(0,0,0,.025);
-    padding: 1em;"
->
+```plantuml
 
 @startuml
 skinparam noteFontColor white
@@ -60,13 +53,12 @@ Admin --> DataManage
 
 Admin -u-|> Teamlead
 @enduml
-**Діаграма прецедентів**
 
-</center>
 ```
+
 ## Робітник
 
-```
+```plantuml
 @startuml
 skinparam noteFontColor white
 
@@ -110,7 +102,7 @@ end note
 
 ```
 ## Тімлід
-```
+```plantuml
 @startuml
 top to bottom direction
 
@@ -129,7 +121,7 @@ Lead -u-> ProjectManage
 @enduml
 ```
 ## Адміністратор
-```
+```plantuml
 @startuml
 actor "Адміністратор системи" as Admin
 usecase "<b>DataManage</b>\nКерувати даними системи" as DataManage
@@ -141,7 +133,5 @@ BanUser .u.> DataManage:extends
 UnBanUser .u.> DataManage:extends
 @enduml
 ```
-**Діаграма прецедентів**
-
-</center>
+## Сценарії
 
