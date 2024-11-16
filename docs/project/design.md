@@ -85,14 +85,14 @@ Task.dueDate --* Task
 Task.createdAt --* Task
 
 entity Artefact #orange
-entity Artefact.id #lightOrange
-entity Artefact.title #lightOrange
-entity Artefact.description #lightOrange
-entity Artefact.filePath #lightOrange
-entity Artefact.fileType #lightOrange
-entity Artefact.uploadedBy #lightOrange
-entity Artefact.projectId #lightOrange
-entity Artefact.createdAt #lightOrange
+entity Artefact.id #orange
+entity Artefact.title #orange
+entity Artefact.description #orange
+entity Artefact.filePath #orange
+entity Artefact.fileType #orange
+entity Artefact.uploadedBy #orange
+entity Artefact.projectId #orange
+entity Artefact.createdAt #orange
 
 Artefact.id -u-* Artefact
 Artefact.title --* Artefact
@@ -123,6 +123,7 @@ Task "1.1" -- "0.*" User
 Artefact "1.1" -- "0.*" User
 Grant "1.1" -- "0.*" User
 Grant "1.1" -- "0.*" Project
+
 @enduml
 ```
 
