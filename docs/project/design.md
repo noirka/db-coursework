@@ -9,17 +9,17 @@ entity User.id #lightCyan
 entity User.username #lightCyan
 entity User.email #lightCyan
 entity User.password #lightCyan
+entity User.roleId #lightCyan
 entity User.status #lightCyan
-entity User.created_at #lightCyan
-entity User.updated_at #lightCyan
+entity User.createdAt #lightCyan
 
 User.id -r-* User
 User.username --* User
 User.email --* User
 User.password --* User
+User.roleId --* User
 User.status --* User
-User.created_at --* User
-User.updated_at --* User
+User.createdAt --* User
 
 entity Role #yellow
 entity Role.id #lightYellow
@@ -28,99 +28,91 @@ entity Role.name #lightYellow
 Role.id --* Role
 Role.name --* Role
 
-entity Project #black
-entity Project.id #gray
-entity Project.name #gray
-entity Project.description #gray
-entity Project.owner_id #gray
-entity Project.team_id #gray
-entity Project.created_at #gray
-entity Project.updated_at #gray
+entity Project #gray
+entity Project.id #lightGray
+entity Project.name #lightGray
+entity Project.description #lightGray
+entity Project.ownerId #lightGray
+entity Project.teamId #lightGray
+entity Project.createdAt #lightGray
 
 Project.id -u-* Project
 Project.name -u-* Project
-Project.description -u-* Project
-Project.owner_id -u-* Project
-Project.team_id -u-* Project
-Project.created_at -u-* Project
-Project.updated_at -u-* Project
+Project.description --* Project
+Project.ownerId --* Project
+Project.teamId --* Project
+Project.createdAt --* Project
 
-entity Team #purple
-entity Team.id #plum
-entity Team.created_at #plum
-entity Team.updated_at #plum
+entity Team #lightBlue
+entity Team.id #lightBlue
+entity Team.createdAt #lightBlue
 
-Team.id -r-* Team
-Team.created_at --* Team
-Team.updated_at --* Team
+Team.id -u-* Team
+Team.createdAt --* Team
 
-entity Member #green
-entity Member.id #lightGreen
-entity Member.user_id #lightGreen
-entity Member.team_id #lightGreen
-entity Member.team_role #lightGreen
-entity Member.joined_at #lightGreen
+entity Member #red
+entity Member.id #lightPink
+entity Member.userId #lightPink
+entity Member.teamId #lightPink
+entity Member.teamRole #lightPink
+entity Member.joinedAt #lightPink
 
-Member.id --* Member
-Member.user_id --* Member
-Member.team_id --* Member
-Member.team_role --* Member
-Member.joined_at --* Member
+Member.id -u-* Member
+Member.userId --* Member
+Member.teamId --* Member
+Member.teamRole --* Member
+Member.joinedAt --* Member
 
-entity Task #orange
-entity Task.id #peachPuff
-entity Task.title #peachPuff
-entity Task.description #peachPuff
-entity Task.assigned_to #peachPuff
-entity Task.project_id #peachPuff
-entity Task.status #peachPuff
-entity Task.priority #peachPuff
-entity Task.due_date #peachPuff
-entity Task.created_at #peachPuff
-entity Task.updated_at #peachPuff
+entity Task #purple
+entity Task.id #plum
+entity Task.title #plum
+entity Task.description #plum
+entity Task.assignedTo #plum
+entity Task.projectId #plum
+entity Task.status #plum
+entity Task.priority #plum
+entity Task.dueDate #plum
+entity Task.createdAt #plum
 
 Task.id -u-* Task
-Task.title -u-* Task
-Task.description -u-* Task
-Task.assigned_to -u-* Task
-Task.project_id -u-* Task
-Task.status -u-* Task
-Task.priority -u-* Task
-Task.due_date -u-* Task
-Task.created_at -u-* Task
-Task.updated_at -u-* Task
+Task.title --* Task
+Task.description --* Task
+Task.assignedTo --* Task
+Task.projectId --* Task
+Task.status --* Task
+Task.priority --* Task
+Task.dueDate --* Task
+Task.createdAt --* Task
 
-entity Artefact #red
-entity Artefact.id #red
-entity Artefact.title #red
-entity Artefact.description #red
-entity Artefact.file_path #red
-entity Artefact.file_type #red
-entity Artefact.uploaded_by #red
-entity Artefact.project_id #red
-entity Artefact.created_at #red
-entity Artefact.updated_at #red
+entity Artefact #orange
+entity Artefact.id #lightOrange
+entity Artefact.title #lightOrange
+entity Artefact.description #lightOrange
+entity Artefact.filePath #lightOrange
+entity Artefact.fileType #lightOrange
+entity Artefact.uploadedBy #lightOrange
+entity Artefact.projectId #lightOrange
+entity Artefact.createdAt #lightOrange
 
-Artefact.id --* Artefact
+Artefact.id -u-* Artefact
 Artefact.title --* Artefact
 Artefact.description --* Artefact
-Artefact.file_path --* Artefact
-Artefact.file_type --* Artefact
-Artefact.uploaded_by --* Artefact
-Artefact.project_id --* Artefact
-Artefact.created_at --* Artefact
-Artefact.updated_at --* Artefact
+Artefact.filePath --* Artefact
+Artefact.fileType --* Artefact
+Artefact.uploadedBy --* Artefact
+Artefact.projectId --* Artefact
+Artefact.createdAt --* Artefact
 
-entity Grant #blue
-entity Grant.id #lightBlue
-entity Grant.project_id #lightBlue
-entity Grant.user_id #lightBlue
-entity Grant.created_at #lightBlue
+entity Grant #lightGreen
+entity Grant.id #lightGreen
+entity Grant.projectId #lightGreen
+entity Grant.userId #lightGreen
+entity Grant.createdAt #lightGreen
 
-Grant.id --* Grant
-Grant.project_id --* Grant
-Grant.user_id --* Grant
-Grant.created_at --* Grant
+Grant.id -u-* Grant
+Grant.projectId --* Grant
+Grant.userId --* Grant
+Grant.createdAt --* Grant
 
 User "1.1" -u- "0.*" Role
 User "1.1" -- "0.*" Task
@@ -131,9 +123,7 @@ Task "1.1" -- "0.*" User
 Artefact "1.1" -- "0.*" User
 Grant "1.1" -- "0.*" User
 Grant "1.1" -- "0.*" Project
-
 @enduml
-
 ```
 
 В рамках проекту розробляється: 
