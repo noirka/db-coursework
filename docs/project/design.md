@@ -2,6 +2,7 @@
 ##Модель бізнес об'єктів
 
 @startuml
+
 entity User
 entity User.nickname
 entity User.email
