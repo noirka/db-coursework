@@ -3,7 +3,7 @@
 
 ```plantuml
 @startuml
-
+left to right direction
 entity User #cyan
 entity User.id #lightCyan
 entity User.username #lightCyan
