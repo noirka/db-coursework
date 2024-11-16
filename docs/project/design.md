@@ -1,5 +1,6 @@
 # Проєктування бази даних
-##Модель бізнес об'єктів
+
+## Модель бізнес об'єктів
 
 ```plantuml
 @startuml
@@ -126,9 +127,97 @@ Grant "1.1" -- "0.*" Project
 
 @enduml
 ```
+## ER-модель
+```plantuml
+@startuml
 
-В рамках проекту розробляється: 
+package AccountManagement {
+    class User {
+        +id : INT
+        +username : VARCHAR(45)
+        +email : VARCHAR(45)
+        +password : VARCHAR(255)
+        +roleId : INT
+        +status : ENUM('ACTIVE', 'BANNED')
+        +createdAt : DATETIME
+    }
+}
 
-- ER-модель
+package ProjectManagement {
+    class Project {
+        +id : INT
+        +name : VARCHAR(100)
+        +description : TEXT
+        +ownerId : INT
+        +teamId : INT
+        +createdAt : DATETIME
+    }
+
+    class Team {
+        +id : INT
+        +createdAt : DATETIME
+    }
+
+    class Member {
+        +id : INT
+        +userId : INT
+        +teamId : INT
+        +teamRole : ENUM('Developer', 'Project Leader')
+        +joinedAt : DATETIME
+    }
+
+    class Task {
+        +id : INT
+        +title : VARCHAR(100)
+        +description : TEXT
+        +assignedTo : INT
+        +projectId : INT
+        +status : ENUM()
+        +priority : ENUM()
+        +dueDate : DATETIME
+        +createdAt : DATETIME
+    }
+
+    class Artefact {
+        +id : INT
+        +title : VARCHAR(100)
+        +description : TEXT
+        +filePath : VARCHAR(255)
+        +fileType : VARCHAR(45)
+        +uploadedBy : INT
+        +projectId : INT
+        +createdAt : DATETIME
+    }
+
+    Project "1" -- "*" Task
+    Project "1" -- "*" Artefact
+    Project "1" -- "1" Team
+    Team "1" -- "*" Member
+    Member "1" -- "1" User
+    Task "1" -- "1" User
+    Artefact "1" -- "1" User
+    Project "1" -- "*" User
+}
+
+package PermissionManagement {
+    class Role {
+        +id : INT
+        +name : VARCHAR(45)
+    }
+
+    class Grant {
+        +id : INT
+        +projectId : INT
+        +userId : INT
+        +createdAt : DATETIME
+    }
+
+    Grant "1" -- "*" Project
+    Grant "1" -- "1" User
+    User "1" -- "1" Role
+}
+
+@enduml
+```
 - реляційна схема
 
