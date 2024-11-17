@@ -219,5 +219,7 @@ package PermissionManagement {
 
 @enduml
 ```
-- реляційна схема
+## Реляційна схема
+
+![Реляційна схема](./relational-schema.png)
 
