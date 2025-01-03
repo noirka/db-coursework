@@ -1,0 +1,544 @@
+import fp from 'fastify-plugin';
+
+const dbModels = {
+  artefact: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getArtefacts(req, res) {
+      const artefacts = await prisma.artefact.findMany();
+      res.send(artefacts);
+    }
+
+    async function getArtefactById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Artefact ID must be an integer');
+      const artefact = await prisma.artefact.findUnique({
+        where: { id: intId },
+      });
+      if (!artefact) {
+        throw httpErrors.notFound('Artefact not found');
+      }
+      res.send(artefact);
+    }
+
+    async function createArtefact(req, res) {
+      try {
+        const newArtefact = await prisma.artefact.create({
+          data: req.body,
+        });
+        res.send(newArtefact);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function updateArtefact(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Artefact ID must be an integer');
+      try {
+        const updatedArtefact = await prisma.artefact.update({
+          where: { id: intId },
+          data: req.body,
+        });
+        res.send(updatedArtefact);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteArtefact(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Artefact ID must be an integer');
+      try {
+        await prisma.artefact.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Artefact successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete artefact');
+      }
+    }
+
+    fastify.decorate('getArtefacts', getArtefacts);
+    fastify.decorate('getArtefactById', getArtefactById);
+    fastify.decorate('createArtefact', createArtefact);
+    fastify.decorate('updateArtefact', updateArtefact);
+    fastify.decorate('deleteArtefact', deleteArtefact);
+  },
+
+  grant: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getGrants(req, res) {
+      const grants = await prisma.grant.findMany();
+      res.send(grants);
+    }
+
+    async function getGrantById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Grant ID must be an integer');
+      const grant = await prisma.grant.findUnique({
+        where: { id: intId },
+      });
+      if (!grant) {
+        throw httpErrors.notFound('Grant not found');
+      }
+      res.send(grant);
+    }
+
+    async function createGrant(req, res) {
+      try {
+        const newGrant = await prisma.grant.create({
+          data: req.body,
+        });
+        res.send(newGrant);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteGrant(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Grant ID must be an integer');
+      try {
+        await prisma.grant.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Grant successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete grant');
+      }
+    }
+
+    fastify.decorate('getGrants', getGrants);
+    fastify.decorate('getGrantById', getGrantById);
+    fastify.decorate('createGrant', createGrant);
+    fastify.decorate('deleteGrant', deleteGrant);
+  },
+
+  member: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getMembers(req, res) {
+      const members = await prisma.member.findMany();
+      res.send(members);
+    }
+
+    async function getMemberById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Member ID must be an integer');
+      const member = await prisma.member.findUnique({
+        where: { id: intId },
+      });
+      if (!member) {
+        throw httpErrors.notFound('Member not found');
+      }
+      res.send(member);
+    }
+
+    async function createMember(req, res) {
+      try {
+        const newMember = await prisma.member.create({
+          data: req.body,
+        });
+        res.send(newMember);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteMember(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Member ID must be an integer');
+      try {
+        await prisma.member.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Member successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete member');
+      }
+    }
+
+    fastify.decorate('getMembers', getMembers);
+    fastify.decorate('getMemberById', getMemberById);
+    fastify.decorate('createMember', createMember);
+    fastify.decorate('deleteMember', deleteMember);
+  },
+
+  project: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getProjects(req, res) {
+      const projects = await prisma.project.findMany();
+      res.send(projects);
+    }
+
+    async function getProjectById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Project ID must be an integer');
+      const project = await prisma.project.findUnique({
+        where: { id: intId },
+      });
+      if (!project) {
+        throw httpErrors.notFound('Project not found');
+      }
+      res.send(project);
+    }
+
+    async function createProject(req, res) {
+      try {
+        const newProject = await prisma.project.create({
+          data: req.body,
+        });
+        res.send(newProject);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function updateProject(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Project ID must be an integer');
+      try {
+        const updatedProject = await prisma.project.update({
+          where: { id: intId },
+          data: req.body,
+        });
+        res.send(updatedProject);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteProject(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Project ID must be an integer');
+      try {
+        await prisma.project.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Project successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete project');
+      }
+    }
+
+    fastify.decorate('getProjects', getProjects);
+    fastify.decorate('getProjectById', getProjectById);
+    fastify.decorate('createProject', createProject);
+    fastify.decorate('updateProject', updateProject);
+    fastify.decorate('deleteProject', deleteProject);
+  },
+
+  role: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getRoles(req, res) {
+      const roles = await prisma.role.findMany();
+      res.send(roles);
+    }
+
+    async function getRoleById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Role ID must be an integer');
+      const role = await prisma.role.findUnique({
+        where: { id: intId },
+      });
+      if (!role) {
+        throw httpErrors.notFound('Role not found');
+      }
+      res.send(role);
+    }
+
+    async function createRole(req, res) {
+      try {
+        const newRole = await prisma.role.create({
+          data: req.body,
+        });
+        res.send(newRole);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteRole(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Role ID must be an integer');
+      try {
+        await prisma.role.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Role successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete role');
+      }
+    }
+
+    fastify.decorate('getRoles', getRoles);
+    fastify.decorate('getRoleById', getRoleById);
+    fastify.decorate('createRole', createRole);
+    fastify.decorate('deleteRole', deleteRole);
+  },
+
+  task: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getTasks(req, res) {
+      const tasks = await prisma.task.findMany();
+      res.send(tasks);
+    }
+
+    async function getTaskById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Task ID must be an integer');
+      const task = await prisma.task.findUnique({
+        where: { id: intId },
+      });
+      if (!task) {
+        throw httpErrors.notFound('Task not found');
+      }
+      res.send(task);
+    }
+
+    async function createTask(req, res) {
+      try {
+        const newTask = await prisma.task.create({
+          data: req.body,
+        });
+        res.send(newTask);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function updateTask(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Task ID must be an integer');
+      try {
+        const updatedTask = await prisma.task.update({
+          where: { id: intId },
+          data: req.body,
+        });
+        res.send(updatedTask);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteTask(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Task ID must be an integer');
+      try {
+        await prisma.task.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Task successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete task');
+      }
+    }
+
+    fastify.decorate('getTasks', getTasks);
+    fastify.decorate('getTaskById', getTaskById);
+    fastify.decorate('createTask', createTask);
+    fastify.decorate('updateTask', updateTask);
+    fastify.decorate('deleteTask', deleteTask);
+  },
+
+  team: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getTeams(req, res) {
+      const teams = await prisma.team.findMany();
+      res.send(teams);
+    }
+
+    async function getTeamById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Team ID must be an integer');
+      const team = await prisma.team.findUnique({
+        where: { id: intId },
+      });
+      if (!team) {
+        throw httpErrors.notFound('Team not found');
+      }
+      res.send(team);
+    }
+
+    async function createTeam(req, res) {
+      try {
+        const newTeam = await prisma.team.create({
+          data: req.body,
+        });
+        res.send(newTeam);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function updateTeam(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Team ID must be an integer');
+      try {
+        const updatedTeam = await prisma.team.update({
+          where: { id: intId },
+          data: req.body,
+        });
+        res.send(updatedTeam);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteTeam(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('Team ID must be an integer');
+      try {
+        await prisma.team.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'Team successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete team');
+      }
+    }
+
+    fastify.decorate('getTeams', getTeams);
+    fastify.decorate('getTeamById', getTeamById);
+    fastify.decorate('createTeam', createTeam);
+    fastify.decorate('updateTeam', updateTeam);
+    fastify.decorate('deleteTeam', deleteTeam);
+  },
+
+  user: async (fastify) => {
+    const { prisma, httpErrors } = fastify;
+
+    async function getUsers(req, res) {
+      const users = await prisma.user.findMany();
+      res.send(users);
+    }
+
+    async function getUserById(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('User ID must be an integer');
+      const user = await prisma.user.findUnique({
+        where: { id: intId },
+      });
+      if (!user) {
+        throw httpErrors.notFound('User not found');
+      }
+      res.send(user);
+    }
+
+    async function createUser(req, res) {
+      try {
+        const newUser = await prisma.user.create({
+          data: req.body,
+        });
+        res.send(newUser);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function updateUser(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('User ID must be an integer');
+      try {
+        const updatedUser = await prisma.user.update({
+          where: { id: intId },
+          data: req.body,
+        });
+        res.send(updatedUser);
+      } catch (error) {
+        throw httpErrors.badRequest('Invalid request data');
+      }
+    }
+
+    async function deleteUser(req, res) {
+      const { id } = req.params;
+      const intId = parseInt(id, 10);
+      if (isNaN(intId))
+        throw httpErrors.badRequest('User ID must be an integer');
+      try {
+        await prisma.user.delete({
+          where: { id: intId },
+        });
+        res.status(200).send({
+          message: 'User successfully deleted',
+        });
+      } catch (error) {
+        throw httpErrors.badRequest('Failed to delete user');
+      }
+    }
+
+    fastify.decorate('getUsers', getUsers);
+    fastify.decorate('getUserById', getUserById);
+    fastify.decorate('createUser', createUser);
+    fastify.decorate('updateUser', updateUser);
+    fastify.decorate('deleteUser', deleteUser);
+  },
+};
+
+export default fp(async (fastify) => {
+  for (const [name, handler] of Object.entries(dbModels)) {
+    await fastify.register(handler);
+  }
+}, {
+  name: 'dbModels',
+});
