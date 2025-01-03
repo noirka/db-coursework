@@ -254,8 +254,7 @@ COMMIT;
 ```
 ## RESTfull сервіс для управління даними
 
----
-Запуск серверу
+## Запуск серверу
 
 ```javascript
 import Fastify from 'fastify';
@@ -300,7 +299,7 @@ const start = async () => {
 start();
 
 ```
-Функції-контролери
+## Функції-контролери
 ```javascript
 import fp from 'fastify-plugin';
 
@@ -386,7 +385,7 @@ export default fp(projects, {
 });
 
 ```
-Маршрути
+## Маршрути
 ```javascript
 import {
   updateProjectSchema,
@@ -420,7 +419,7 @@ export default async function(fastify) {
   fastify.delete('/:id', deleteProject); // Delete a project by ID
 }
 ```
-Схеми валідації
+## Схеми валідації
 ```javascript
 // Schema for updating a project
 export const updateProjectSchema = {
