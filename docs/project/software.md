@@ -256,7 +256,8 @@ COMMIT;
 
 ---
 Запуск серверу
----js
+
+```javascript
 import Fastify from 'fastify';
 import AutoLoad from '@fastify/autoload';
 import Sensible from '@fastify/sensible';
@@ -297,3 +298,5 @@ const start = async () => {
 };
 
 start();
+
+```
