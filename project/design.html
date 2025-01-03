@@ -1,0 +1,425 @@
+<!DOCTYPE HTML>
+<html lang="uk" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Проєктування інформаційного забезпечення - Курсова робота з предмету &quot;Бази даних&quot;: Система управління проєктами</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Курсова робота з предмету &quot;Бази даних&quot;: Система управління проєктами</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="Проєктування-бази-даних"><a class="header" href="#Проєктування-бази-даних">Проєктування бази даних</a></h1>
+<h2 id="Модель-бізнес-обєктів"><a class="header" href="#Модель-бізнес-обєктів">Модель бізнес об'єктів</a></h2>
+<pre><code class="language-plantuml">@startuml
+left to right direction
+entity User #cyan
+entity User.id #lightCyan
+entity User.username #lightCyan
+entity User.email #lightCyan
+entity User.password #lightCyan
+entity User.roleId #lightCyan
+entity User.status #lightCyan
+entity User.createdAt #lightCyan
+
+User.id -r-* User
+User.username --* User
+User.email --* User
+User.password --* User
+User.roleId --* User
+User.status --* User
+User.createdAt --* User
+
+entity Role #yellow
+entity Role.id #lightYellow
+entity Role.name #lightYellow
+
+Role.id --* Role
+Role.name --* Role
+
+entity Project #gray
+entity Project.id #lightGray
+entity Project.name #lightGray
+entity Project.description #lightGray
+entity Project.ownerId #lightGray
+entity Project.teamId #lightGray
+entity Project.createdAt #lightGray
+
+Project.id -u-* Project
+Project.name -u-* Project
+Project.description --* Project
+Project.ownerId --* Project
+Project.teamId --* Project
+Project.createdAt --* Project
+
+entity Team #lightBlue
+entity Team.id #lightBlue
+entity Team.createdAt #lightBlue
+
+Team.id -u-* Team
+Team.createdAt --* Team
+
+entity Member #red
+entity Member.id #lightPink
+entity Member.userId #lightPink
+entity Member.teamId #lightPink
+entity Member.teamRole #lightPink
+entity Member.joinedAt #lightPink
+
+Member.id -u-* Member
+Member.userId --* Member
+Member.teamId --* Member
+Member.teamRole --* Member
+Member.joinedAt --* Member
+
+entity Task #purple
+entity Task.id #plum
+entity Task.title #plum
+entity Task.description #plum
+entity Task.assignedTo #plum
+entity Task.projectId #plum
+entity Task.status #plum
+entity Task.priority #plum
+entity Task.dueDate #plum
+entity Task.createdAt #plum
+
+Task.id -u-* Task
+Task.title --* Task
+Task.description --* Task
+Task.assignedTo --* Task
+Task.projectId --* Task
+Task.status --* Task
+Task.priority --* Task
+Task.dueDate --* Task
+Task.createdAt --* Task
+
+entity Artefact #orange
+entity Artefact.id #orange
+entity Artefact.title #orange
+entity Artefact.description #orange
+entity Artefact.filePath #orange
+entity Artefact.fileType #orange
+entity Artefact.uploadedBy #orange
+entity Artefact.projectId #orange
+entity Artefact.createdAt #orange
+
+Artefact.id -u-* Artefact
+Artefact.title --* Artefact
+Artefact.description --* Artefact
+Artefact.filePath --* Artefact
+Artefact.fileType --* Artefact
+Artefact.uploadedBy --* Artefact
+Artefact.projectId --* Artefact
+Artefact.createdAt --* Artefact
+
+entity Grant #lightGreen
+entity Grant.id #lightGreen
+entity Grant.projectId #lightGreen
+entity Grant.userId #lightGreen
+entity Grant.createdAt #lightGreen
+
+Grant.id -u-* Grant
+Grant.projectId --* Grant
+Grant.userId --* Grant
+Grant.createdAt --* Grant
+
+User "1.1" -u- "0.*" Role
+User "1.1" -- "0.*" Task
+Project "1.1" -- "0.*" Team
+Team "1.*" -- "0.1" Member
+Member "1.*" -- "0.*" User
+Task "1.1" -- "0.*" User
+Artefact "1.1" -- "0.*" User
+Grant "1.1" -- "0.*" User
+Grant "1.1" -- "0.*" Project
+
+@enduml
+</code></pre>
+<h2 id="er-модель"><a class="header" href="#er-модель">ER-модель</a></h2>
+<pre><code class="language-plantuml">@startuml
+
+package AccountManagement {
+    class User {
+        +id : INT
+        +username : VARCHAR(45)
+        +email : VARCHAR(45)
+        +password : VARCHAR(255)
+        +roleId : INT
+        +status : ENUM('ACTIVE', 'BANNED')
+        +createdAt : DATETIME
+    }
+}
+
+package ProjectManagement {
+    class Project {
+        +id : INT
+        +name : VARCHAR(100)
+        +description : TEXT
+        +ownerId : INT
+        +teamId : INT
+        +createdAt : DATETIME
+    }
+
+    class Team {
+        +id : INT
+        +createdAt : DATETIME
+    }
+
+    class Member {
+        +id : INT
+        +userId : INT
+        +teamId : INT
+        +teamRole : ENUM('Developer', 'Project Leader')
+        +joinedAt : DATETIME
+    }
+
+    class Task {
+        +id : INT
+        +title : VARCHAR(100)
+        +description : TEXT
+        +assignedTo : INT
+        +projectId : INT
+        +status : ENUM()
+        +priority : ENUM()
+        +dueDate : DATETIME
+        +createdAt : DATETIME
+    }
+
+    class Artefact {
+        +id : INT
+        +title : VARCHAR(100)
+        +description : TEXT
+        +filePath : VARCHAR(255)
+        +fileType : VARCHAR(45)
+        +uploadedBy : INT
+        +projectId : INT
+        +createdAt : DATETIME
+    }
+
+    Project "1" -- "*" Task
+    Project "1" -- "*" Artefact
+    Project "1" -- "1" Team
+    Team "1" -- "*" Member
+    Member "1" -- "1" User
+    Task "1" -- "1" User
+    Artefact "1" -- "1" User
+    Project "1" -- "*" User
+}
+
+package PermissionManagement {
+    class Role {
+        +id : INT
+        +name : VARCHAR(45)
+    }
+
+    class Grant {
+        +id : INT
+        +projectId : INT
+        +userId : INT
+        +createdAt : DATETIME
+    }
+
+    Grant "1" -- "*" Project
+    Grant "1" -- "1" User
+    User "1" -- "1" Role
+}
+
+@enduml
+</code></pre>
+<h2 id="Реляційна-схема"><a class="header" href="#Реляційна-схема">Реляційна схема</a></h2>
+<p><img src="./relational-schema.png" alt="Реляційна схема" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../project/use_cases.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../project/software.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../project/use_cases.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../project/software.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

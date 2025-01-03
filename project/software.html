@@ -1,0 +1,650 @@
+<!DOCTYPE HTML>
+<html lang="uk" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Реалізація інформаційного та програмного забезпечення - Курсова робота з предмету &quot;Бази даних&quot;: Система управління проєктами</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Курсова робота з предмету &quot;Бази даних&quot;: Система управління проєктами</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="Реалізація-інформаційного-та-програмного-забезпечення"><a class="header" href="#Реалізація-інформаційного-та-програмного-забезпечення">Реалізація інформаційного та програмного забезпечення</a></h1>
+<h2 id="sql-скрипт-для-створення-на-початкового-наповнення-бази-даних"><a class="header" href="#sql-скрипт-для-створення-на-початкового-наповнення-бази-даних">SQL-скрипт для створення на початкового наповнення бази даних</a></h2>
+<pre><code class="language-sql">-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8mb4 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`User` ;
+
+CREATE TABLE IF NOT EXISTS `User` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `roleId` INT UNSIGNED NOT NULL,
+  `status` ENUM('ACTIVE', 'BANNED') NOT NULL DEFAULT 'ACTIVE',
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email`),
+  INDEX `roleId_idx` (`roleId`),
+  CONSTRAINT `fk_roleId`
+      FOREIGN KEY (`roleId`)
+          REFERENCES `Role` (`id`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Role`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Role` ;
+
+CREATE TABLE IF NOT EXISTS `Role` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `idRole_UNIQUE` (`id`),
+    UNIQUE INDEX `name_UNIQUE` (`name`)
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Project`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Project`;
+
+CREATE TABLE IF NOT EXISTS `Project` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(100) NOT NULL,
+    `description` TEXT,
+    `ownerId` INT UNSIGNED NOT NULL,
+    `teamId` INT UNSIGNED NOT NULL,
+    `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `name_UNIQUE` (`name`),
+    INDEX `ownerId_idx` (`ownerId`),
+    CONSTRAINT `fk_ownerId`
+        FOREIGN KEY (`ownerId`)
+            REFERENCES `User` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_teamId`
+        FOREIGN KEY (`teamId`)
+            REFERENCES `Team` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Team`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Team`;
+
+CREATE TABLE IF NOT EXISTS `Team` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Member`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Member`;
+
+CREATE TABLE IF NOT EXISTS `Member` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `userId` INT UNSIGNED NOT NULL,
+    `teamId` INT UNSIGNED NOT NULL,
+    `teamRole` ENUM('Developer', 'Project Leader') NOT NULL DEFAULT 'Developer',
+    `joinedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    INDEX `userId_idx` (`userId`),
+    INDEX `teamId_idx` (`teamId`),
+    CONSTRAINT `fk_userId`
+        FOREIGN KEY (`userId`)
+            REFERENCES `User` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_member_teamId`
+        FOREIGN KEY (`teamId`)
+            REFERENCES `Team` (`id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Task`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Task`;
+
+CREATE TABLE IF NOT EXISTS `Task` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(100) NOT NULL,
+  `description` TEXT NULL,
+  `assignedTo` INT UNSIGNED DEFAULT NULL,
+  `projectId` INT UNSIGNED NOT NULL,
+  `status` ENUM('PENDING', 'IN_PROGRESS', 'COMPLETED', 'ON_HOLD', 'CANCELLED') NOT NULL DEFAULT 'PENDING',
+  `priority` ENUM('LOW', 'MEDIUM', 'HIGH') NOT NULL DEFAULT 'MEDIUM',
+  `dueDate` DATETIME NULL,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `assignedTo_idx` (`assignedTo`),
+  INDEX `projectId_idx` (`projectId`),
+  CONSTRAINT `fk_assignedTo_user`
+      FOREIGN KEY (`assignedTo`)
+          REFERENCES `User` (`id`)
+          ON DELETE SET NULL
+          ON UPDATE CASCADE,
+  CONSTRAINT `fk_projectId`
+      FOREIGN KEY (`projectId`)
+          REFERENCES `Project` (`id`)
+          ON DELETE CASCADE
+          ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Artefact`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Artefact`;
+
+CREATE TABLE IF NOT EXISTS `Artefact` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(100) NOT NULL,
+  `description` TEXT NULL,
+  `filePath` VARCHAR(255) NOT NULL,
+  `fileType` VARCHAR(45) NOT NULL,
+  `uploadedBy` INT UNSIGNED NOT NULL,
+  `projectId` INT UNSIGNED NOT NULL,
+  `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `projectId_idx` (`projectId`),
+  CONSTRAINT `fk_uploadedBy_user`
+      FOREIGN KEY (`uploadedBy`)
+          REFERENCES `User` (`id`)
+          ON DELETE NO ACTION
+          ON UPDATE NO ACTION,
+  CONSTRAINT `fk_projectId_artefact`
+      FOREIGN KEY (`projectId`)
+          REFERENCES `Project` (`id`)
+          ON DELETE CASCADE
+          ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Grant`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Grant`;
+
+CREATE TABLE IF NOT EXISTS `Grant` (
+   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+   `projectId` INT UNSIGNED NOT NULL,
+   `userId` INT UNSIGNED NOT NULL,
+   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY (`id`),
+   INDEX `projectId_idx` (`projectId`),
+   INDEX `userId_idx` (`userId`),
+   CONSTRAINT `fk_grant_project`
+       FOREIGN KEY (`projectId`)
+           REFERENCES `Project` (`id`)
+           ON DELETE CASCADE
+           ON UPDATE CASCADE,
+   CONSTRAINT `fk_grant_user`
+       FOREIGN KEY (`userId`)
+           REFERENCES `User` (`id`)
+           ON DELETE CASCADE
+           ON UPDATE CASCADE
+) ENGINE = InnoDB;
+
+-- Filling the tables with data
+START TRANSACTION;
+
+INSERT INTO `Role` (`name`) VALUES
+('Admin'),
+('Developer'),
+('Manager');
+
+INSERT INTO `User` (`username`, `email`, `password`, `roleId`, `status`) VALUES
+('john_doe', 'john.doe@example.com', 'password123', 1, 'ACTIVE'),
+('jane_smith', 'jane.smith@example.com', 'password123', 2, 'ACTIVE'),
+('alex_williams', 'alex.williams@example.com', 'password123', 3, 'ACTIVE'),
+('michael_brown', 'michael.brown@example.com', 'password123', 2, 'BANNED');
+
+INSERT INTO `Team` () VALUES
+(),
+(),
+(),
+();
+
+INSERT INTO `Member` (`userId`, `teamId`, `teamRole`) VALUES
+(1, 1, 'Project Leader'),
+(2, 1, 'Developer'),
+(3, 2, 'Developer'),
+(4, 3, 'Developer');
+
+INSERT INTO `Project` (`name`, `description`, `ownerId`, `teamId`) VALUES
+('Project A', 'Description for Project A', 1, 1),
+('Project B', 'Description for Project B', 3, 2),
+('Project C', 'Description for Project C', 1, 3);
+
+INSERT INTO `Task` (`title`, `description`, `assignedTo`, `projectId`, `status`, `priority`, `dueDate`) VALUES
+('Task 1 for Project A', 'Task 1 description', 2, 1, 'PENDING', 'HIGH', '2024-11-20 10:00:00'),
+('Task 2 for Project A', 'Task 2 description', 3, 1, 'IN_PROGRESS', 'MEDIUM', '2024-11-25 12:00:00'),
+('Task 1 for Project B', 'Task 1 description', 4, 2, 'PENDING', 'LOW', '2024-11-22 09:00:00'),
+('Task 1 for Project C', 'Task 1 description', 2, 3, 'COMPLETED', 'HIGH', '2024-11-15 16:00:00');
+
+INSERT INTO `Artefact` (`title`, `description`, `filePath`, `fileType`, `uploadedBy`, `projectId`) VALUES
+('Artefact 1 for Project A', 'Initial design file', '/files/project_a/design_v1.pdf', 'PDF', 2, 1),
+('Artefact 2 for Project B', 'Final report for Project B', '/files/project_b/report_final.pdf', 'PDF', 4, 2),
+('Artefact 1 for Project C', 'Codebase for Project C', '/files/project_c/code.zip', 'ZIP', 2, 3);
+
+INSERT INTO `Grant` (`projectId`, `userId`) VALUES
+(1, 2),
+(1, 3),
+(2, 4);
+
+COMMIT;
+</code></pre>
+<h2 id="restfull-сервіс-для-управління-даними"><a class="header" href="#restfull-сервіс-для-управління-даними">RESTfull сервіс для управління даними</a></h2>
+<h2 id="Запуск-серверу"><a class="header" href="#Запуск-серверу">Запуск серверу</a></h2>
+<pre><code class="language-javascript">import Fastify from 'fastify';
+import AutoLoad from '@fastify/autoload';
+import Sensible from '@fastify/sensible';
+import { join } from 'desm';
+import dotenv from 'dotenv';
+import { PrismaClient } from '@prisma/client';
+
+dotenv.config();
+
+const prisma = new PrismaClient();
+
+const fastify = Fastify({
+  logger: true,
+});
+
+fastify.decorate('prisma', prisma);
+
+fastify.register(Sensible);
+
+fastify.register(AutoLoad, {
+  dir: join(import.meta.url, 'plugins'),
+  dirNameRoutePrefix: false,
+});
+
+fastify.register(AutoLoad, {
+  dir: join(import.meta.url, 'routes'),
+  dirNameRoutePrefix: false,
+});
+
+const start = async () =&gt; {
+  try {
+    const address = await fastify.listen({ port: process.env.PORT || 3000, host: '0.0.0.0' });
+    fastify.log.info(`Server is running on ${address}`);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();
+
+</code></pre>
+<h2 id="Функції-контролери"><a class="header" href="#Функції-контролери">Функції-контролери</a></h2>
+<pre><code class="language-javascript">import fp from 'fastify-plugin';
+
+const projects = async (fastify) =&gt; {
+  const { prisma, httpErrors } = fastify;
+
+  async function getProjects(req, res) {
+    const projects = await prisma.project.findMany();
+    res.send(projects);
+  }
+
+  async function getProjectById(req, res) {
+    const { id } = req.params;
+    const intId = parseInt(id, 10);
+    if (isNaN(intId)) {
+      throw httpErrors.badRequest('Project ID must be an integer');
+    }
+    const project = await prisma.project.findUnique({
+      where: { id: intId },
+    });
+    if (!project) {
+      throw httpErrors.notFound('Project not found');
+    }
+    res.send(project);
+  }
+
+  async function updateProject(req, res) {
+    const { id } = req.params;
+    const intId = parseInt(id, 10);
+    if (isNaN(intId)) {
+      throw httpErrors.badRequest('Project ID must be an integer');
+    }
+    try {
+      const updatedProject = await prisma.project.update({
+        where: { id: intId },
+        data: req.body,
+      });
+      res.send(updatedProject);
+    } catch {
+      throw httpErrors.badRequest('Invalid request data');
+    }
+  }
+
+  async function createProject(req, res) {
+    try {
+      const newProject = await prisma.project.create({
+        data: req.body,
+      });
+      res.send(newProject);
+    } catch {
+      throw httpErrors.badRequest('Invalid request data');
+    }
+  }
+
+  async function deleteProject(req, res) {
+    const { id } = req.params;
+    const intId = parseInt(id, 10);
+    if (isNaN(intId)) {
+      throw httpErrors.badRequest('Project ID must be an integer');
+    }
+    try {
+      await prisma.project.delete({
+        where: { id: intId },
+      });
+      res.status(200).send({
+        message: 'Project successfully deleted',
+      });
+    } catch {
+      throw httpErrors.badRequest('Failed to delete project');
+    }
+  }
+
+  // Decorate fastify with project methods
+  fastify.decorate('getProjects', getProjects);
+  fastify.decorate('getProjectById', getProjectById);
+  fastify.decorate('updateProject', updateProject);
+  fastify.decorate('createProject', createProject);
+  fastify.decorate('deleteProject', deleteProject);
+};
+
+export default fp(projects, {
+  name: 'projects',
+});
+
+</code></pre>
+<h2 id="Маршрути"><a class="header" href="#Маршрути">Маршрути</a></h2>
+<pre><code class="language-javascript">import {
+  updateProjectSchema,
+  createProjectSchema,
+} from '../schemas/projects.js';
+
+export const autoPrefix = '/api/project';
+
+export default async function(fastify) {
+  const {
+    getProjects,
+    getProjectById,
+    updateProject,
+    createProject,
+    deleteProject,
+  } = fastify;
+
+  // Define routes with appropriate HTTP methods and schemas
+  fastify.get('/', getProjects); // Get all projects
+  fastify.get('/:id', getProjectById); // Get a project by ID
+  fastify.patch(
+    '/:id',
+    { schema: updateProjectSchema },
+    updateProject // Update a project by ID
+  );
+  fastify.post(
+    '/',
+    { schema: createProjectSchema },
+    createProject // Create a new project
+  );
+  fastify.delete('/:id', deleteProject); // Delete a project by ID
+}
+</code></pre>
+<h2 id="Схеми-валідації"><a class="header" href="#Схеми-валідації">Схеми валідації</a></h2>
+<pre><code class="language-javascript">// Schema for updating a project
+export const updateProjectSchema = {
+  body: {
+    type: 'object',
+    properties: {
+      name: { type: 'string', minLength: 1 },
+      description: { type: 'string', minLength: 1 },
+      ownerId: { type: 'number' },
+      teamId: { type: 'number' },
+    },
+    required: [],
+    additionalProperties: false,
+  },
+};
+
+// Schema for creating a new project
+export const createProjectSchema = {
+  body: {
+    type: 'object',
+    properties: {
+      name: { type: 'string', minLength: 1 },
+      description: { type: 'string', minLength: 1 },
+      ownerId: { type: 'number' },
+      teamId: { type: 'number' },
+    },
+    required: ['name', 'ownerId', 'teamId'],
+    additionalProperties: false,
+  },
+};
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../project/design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../project/test.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../project/design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../project/test.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
